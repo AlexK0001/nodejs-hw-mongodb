@@ -8,7 +8,7 @@ import { env } from './utils/env.js';
 
 dotenv.config();
 
-const PORT = Number(env('PORT', '3000'));
+const PORT = Number(env('PORT', '3001'));
 
 export const setupServer = () => {
   const app = express();
@@ -24,12 +24,6 @@ export const setupServer = () => {
     }),
   );
 
-  app.get('/', (req, res) => {
-    res.json({
-      message: 'Hello world!',
-    });
-  });
-
   app.use('*', (req, res, next) => {
     res.status(404).json({
       message: 'Not found',
@@ -42,6 +36,13 @@ export const setupServer = () => {
       error: err.message,
     });
   });
+
+  app.get('/', (req, res) => {
+    res.json({
+      message: 'Hello world!',
+    });
+  });
+
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
