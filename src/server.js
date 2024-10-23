@@ -1,10 +1,9 @@
-// src/server.js
-
 import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 import dotenv from "dotenv";
 import { env } from './utils/env.js';
+import { getAllContacts, getContactById } from './services/contacts.js';
 
 dotenv.config();
 
@@ -28,6 +27,7 @@ export const setupServer = () => {
     res.status(404).json({
       message: 'Not found',
     });
+    next()
   });
 
   app.use((err, req, res, next) => {
@@ -35,6 +35,7 @@ export const setupServer = () => {
       message: 'Something went wrong',
       error: err.message,
     });
+    next()
   });
 
   app.get('/', (req, res) => {
@@ -43,6 +44,33 @@ export const setupServer = () => {
     });
   });
 
+  app.get('/contacts', async (req, res) => {
+    const contacts = await getAllContacts();
+
+    res.status(200).json({
+      message: "Successfully found contacts!",
+      data: contacts,
+    });
+  });
+
+  app.get('/contacts/:contactId', async (req, res) => {
+    const { contactId } = req.params;
+    const contact = await getContactById(contactId);
+
+    // Відповідь, якщо контакт не знайдено
+	if (!contact) {
+	  res.status(404).json({
+		  message: 'Contact not found'
+	  });
+	  return;
+	}
+
+	// Відповідь, якщо контакт знайдено
+    res.status(200).json({
+      message: "Successfully found contact with id {contactId}!",
+      data: contact,
+    });
+  });
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

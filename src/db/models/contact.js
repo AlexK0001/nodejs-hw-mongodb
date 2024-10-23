@@ -32,6 +32,5 @@
    },
  );
 
- const contacts = mongoose.model('Contact', contactsSchema, 'contacts');
+ export const contacts = mongoose.model('Contact', contactsSchema, 'contacts');
 
- module.exports = contacts;
