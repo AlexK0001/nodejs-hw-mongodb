@@ -9,7 +9,7 @@ dotenv.config();
 
 const PORT = Number(env('PORT', '3001'));
 
-export function startServer() {
+export default function startServer() {
   const app = express();
 
   app.use(express.json());
