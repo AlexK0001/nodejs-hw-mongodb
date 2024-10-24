@@ -23,21 +23,6 @@ export const startServer = () => {
     }),
   );
 
-  app.use('*', (req, res, next) => {
-    res.status(404).json({
-      message: 'Not found',
-    });
-    next()
-  });
-
-  app.use((err, req, res, next) => {
-    res.status(500).json({
-      message: 'Something went wrong',
-      error: err.message,
-    });
-    next()
-  });
-
   app.get('/', (req, res) => {
     res.json({
       message: 'Hello world!',
@@ -70,6 +55,21 @@ export const startServer = () => {
       message: "Successfully found contact with id {contactId}!",
       data: contact,
     });
+  });
+
+  app.use('*', (req, res, next) => {
+    res.status(404).json({
+      message: 'Not found',
+    });
+    next()
+  });
+
+  app.use((err, req, res, next) => {
+    res.status(500).json({
+      message: 'Something went wrong',
+      error: err.message,
+    });
+    next()
   });
 
   app.listen(PORT, () => {
