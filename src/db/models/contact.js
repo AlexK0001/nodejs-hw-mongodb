@@ -19,7 +19,7 @@
        required: true,
        default: false,
      },
-     gender: {
+     contactType: {
         type: String,
         required: true,
         enum: ['work', 'home', 'personal'],
