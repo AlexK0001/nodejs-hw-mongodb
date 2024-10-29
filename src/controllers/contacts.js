@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { getAllContacts, getContactById } from './services/contacts.js';
+import createHttpError from 'http-errors';
 
 const router = Router();
 
@@ -21,10 +22,7 @@ export const getContactsController = async (req, res) => {
 
     // Відповідь, якщо контакт не знайдено
 	if (!contact) {
-	  res.status(404).json({
-		  message: 'Contact not found'
-	  });
-	  return;
+        throw createHttpError('Contact not found');
 	}
 
 	// Відповідь, якщо контакт знайдено
