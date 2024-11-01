@@ -4,7 +4,7 @@ import {
     getContactById,
     createContact,
     updateContact,
-    deleteContact } from './services/contacts.js';
+    deleteContact } from '../services/contacts.js';
 import createHttpError from 'http-errors';
 
 const router = Router();
