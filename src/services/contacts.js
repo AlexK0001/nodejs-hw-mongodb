@@ -22,6 +22,7 @@ export const updateContact = async (contactId, payload, options = {}) => {
     {
       new: true,
       includeResultMetadata: true,
+      upsert: true,
       ...options,
     },
   );
