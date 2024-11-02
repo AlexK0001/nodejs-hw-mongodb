@@ -38,8 +38,13 @@ export const getContactsController = async (req, res) => {
       data: contact,
     });
   };
-  export const createContactController = async (req, res) => {
+  export const createContactController = async (req, res, next) => {
     const contact = await createContact(req.body);
+
+    if (!contact) {
+        next(createHttpError(404, 'Contact not found'));
+        return;
+	}
 
   res.status(201).json({
     status: 201,
