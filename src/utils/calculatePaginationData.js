@@ -1,4 +1,3 @@
-import { contacts } from '../db/models/contact.js';
 
 export const calculatePaginationData = (count, perPage, page) => {
     const totalPages = Math.ceil(count / perPage);
@@ -6,7 +5,7 @@ export const calculatePaginationData = (count, perPage, page) => {
     const hasPreviousPage = page !== 1;
 
     return {
-      data: [contacts],
+      data:[],
       page,
       perPage,
       totalItems: count,
