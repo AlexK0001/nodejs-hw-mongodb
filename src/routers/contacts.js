@@ -13,7 +13,7 @@ import { isValidId } from "../middlewares/isValidId.js";
 
 const router = Router();
 
-router.get('/contacts', validateBody(createContactSchema), ctrlWrapper(getContactsController));
+router.get('/contacts', ctrlWrapper(getContactsController));
 
 router.get('/contacts/:contactId', isValidId, ctrlWrapper(getContactByIdController));
 

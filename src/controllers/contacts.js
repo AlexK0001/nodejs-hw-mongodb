@@ -21,7 +21,7 @@ export const getContactsController = async (req, res) => {
         perPage,
         sortBy,
         sortOrder });
-
+    console.log(contacts);
     res.status(200).json({
       status: 200,
       message: "Successfully found contacts!",

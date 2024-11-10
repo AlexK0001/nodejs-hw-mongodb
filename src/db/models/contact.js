@@ -43,4 +43,4 @@ const contactsSchema = new Schema(
   }
 );
 
-export const contacts = mongoose.model('Contact', contactsSchema, 'contacts');
+export const contactsAllCollection = mongoose.model('Contact', contactsSchema, 'contacts');
