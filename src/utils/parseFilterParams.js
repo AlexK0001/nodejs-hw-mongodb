@@ -1,11 +1,11 @@
 
 
-const parseСontactType = (contactType) => {
+const parseContactType = (contactType) => {
     const isString = typeof contactType === 'string';
     if (!isString) return;
-    const isСontactType = (contactType) => ['work', 'home', 'personal'].includes(contactType);
+    const isContactType = (contactType) => ['work', 'home', 'personal'].includes(contactType);
 
-    if (isСontactType(contactType)) return contactType;
+    if (isContactType(contactType)) return contactType;
   };
 
   const parseNumber = (number) => {
@@ -28,14 +28,14 @@ const parseСontactType = (contactType) => {
         maxEmail,
         minEmail, } = query;
 
-    const parsedСontactType = parseСontactType(contactType);
+    const parsedContactType = parseContactType(contactType);
     const parsedMaxPhoneNumber = parseNumber(maxPhoneNumber);
     const parsedMinPhoneNumber = parseNumber(minPhoneNumber);
     const parsedMaxEmail = parseNumber(maxEmail);
     const parsedMinEmail = parseNumber(minEmail);
 
     return {
-      contactType: parsedСontactType,
+      contactType: parsedContactType,
       maxPhoneNumber: parsedMaxPhoneNumber,
       minPhoneNumber: parsedMinPhoneNumber,
       maxEmail: parsedMaxEmail,
