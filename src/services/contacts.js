@@ -30,15 +30,6 @@ export const getAllContacts = async ({
     contactsQuery.where('phoneNumber').gte(filter.minPhoneNumber);
   }
 
-  // const contactsCount = await contactsAllCollection.find()
-  //   .merge(contactsQuery)
-  //   .countDocuments();
-
-  // const contacts = await contactsQuery
-  // .skip(skip)
-  // .limit(limit)
-  // .sort({ [sortBy]: sortOrder })
-  // .exec();
   const [contactsCount, contacts] = await Promise.all([
     contactsAllCollection.find().merge(contactsQuery).countDocuments(),
     contactsQuery
