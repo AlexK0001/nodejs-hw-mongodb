@@ -12,13 +12,12 @@ import { parseFilterParams } from "../utils/parseFilterParams.js";
 
 const router = Router();
 
-export default router;
-
 export const getContactsController = async (req, res) => {
     const { page, perPage } = parsePaginationParams(req.query);
     const { sortBy, sortOrder } = parseSortParams(req.query);
-    const filter = parseFilterParams(req.query);
+    const filter = { ...parseFilterParams(req.query), userId: req.user._id };
     const contacts = await getAllContacts({
+        userId: req.user._id,
         page,
         perPage,
         sortBy,
@@ -34,7 +33,7 @@ export const getContactsController = async (req, res) => {
 
   export const getContactByIdController = async (req, res) => {
     const { contactId } = req.params;
-    const contact = await getContactById(contactId);
+    const contact = await getContactById({ _id: contactId, userId: req.user._id });
 
     // Відповідь, якщо контакт не знайдено
 	if (!contact) {
@@ -49,7 +48,8 @@ export const getContactsController = async (req, res) => {
     });
   };
   export const createContactController = async (req, res) => {
-    const contact = await createContact(req.body);
+    const contactData = { ...req.body, userId: req.user._id };
+    const contact = await createContact(contactData);
 
     if (!contact) {
         throw createHttpError(404, 'Contact not found');
@@ -64,7 +64,7 @@ export const getContactsController = async (req, res) => {
 
   export const patchContactController = async (req, res) => {
   const {_id: contactId } = req.params;
-  const result = await updateContact(contactId, req.body);
+  const result = await updateContact({ _id: contactId, userId: req.user._id }, req.body);
 
   if (!result) {
     throw createHttpError(404, 'Contact not found');
@@ -80,7 +80,7 @@ export const getContactsController = async (req, res) => {
   export const deleteContactController = async (req, res) => {
     const { contactId } = req.params;
 
-    const data = await deleteContact( {_id: contactId} );
+    const data = await deleteContact({ _id: contactId, userId: req.user._id });
 
     if (!data) {
         throw createHttpError(404, 'Contact not found');
@@ -88,3 +88,11 @@ export const getContactsController = async (req, res) => {
 
     res.status(204).send();
   };
+
+  router.get('/contacts', getContactsController);
+  router.get('/contacts/:contactId', getContactByIdController);
+  router.post('/contacts', createContactController);
+  router.patch('/contacts/:contactId', patchContactController);
+  router.delete('/contacts/:contactId', deleteContactController);
+
+  export default router;

@@ -2,6 +2,11 @@ import { Schema, mongoose } from 'mongoose';
 
 const contactsSchema = new Schema(
   {
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: [true, 'User ID is required']
+    },
     name: {
       type: String,
       required: [true, 'Name is required'],
