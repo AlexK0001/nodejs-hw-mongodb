@@ -33,7 +33,7 @@ export const getContactsController = async (req, res) => {
 
   export const getContactByIdController = async (req, res) => {
     const { contactId } = req.params;
-    const contact = await getContactById({ _id: contactId, userId: req.user._id });
+    const contact = await getContactById(contactId, req.user._id);
 
     // Відповідь, якщо контакт не знайдено
 	if (!contact) {
@@ -63,8 +63,9 @@ export const getContactsController = async (req, res) => {
   };
 
   export const patchContactController = async (req, res) => {
-  const {_id: contactId } = req.params;
-  const result = await updateContact({ _id: contactId, userId: req.user._id }, req.body);
+  const { contactId } = req.params;
+  const payload = req.body;
+  const result = await updateContact(contactId, payload, { userId: req.user._id });
 
   if (!result) {
     throw createHttpError(404, 'Contact not found');
@@ -88,11 +89,5 @@ export const getContactsController = async (req, res) => {
 
     res.status(204).send();
   };
-
-  router.get('/contacts', getContactsController);
-  router.get('/contacts/:contactId', getContactByIdController);
-  router.post('/contacts', createContactController);
-  router.patch('/contacts/:contactId', patchContactController);
-  router.delete('/contacts/:contactId', deleteContactController);
 
   export default router;
