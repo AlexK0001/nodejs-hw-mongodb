@@ -41,6 +41,9 @@ const contactsSchema = new Schema(
       },
       default: 'personal',
     },
+    photo: {
+      type: String,
+    }
   },
   {
     timestamps: true,
