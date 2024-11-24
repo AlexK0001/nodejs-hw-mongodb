@@ -51,8 +51,8 @@ export const getContactsController = async (req, res) => {
     });
   };
   export const createContactController = async (req, res) => {
-    const contactData = { ...req.body, userId: req.user._id };
-    const contact = await createContact(contactData);
+    // const contactData = { ...req.body, userId: req.user._id };
+    // const contact = await createContact(contactData);
     const photo = req.file;
   let photoUrl;
 
@@ -64,17 +64,20 @@ export const getContactsController = async (req, res) => {
     }
   }
 
-  const payload = req.body;
-  const result = await updateContact(contact, { photo: photoUrl }, payload, contactData);
+  // const payload = req.body;
+  // const result = await updateContact(contact, { photo: photoUrl }, payload, contactData);
+  const contactData = { ...req.body, userId: req.user._id, photo: photoUrl };
+  const contact = await createContact(contactData);
 
-    if (!contact || result) {
+
+    if (!contact) {
         throw createHttpError(404, 'Contact not found');
 	}
 
   res.status(201).json({
     status: 201,
     message: `Successfully created a contact!`,
-    data: result.contact,
+    data: contact,
   });
   };
 
@@ -90,8 +93,18 @@ export const getContactsController = async (req, res) => {
       photoUrl = await saveFileToUploadDir(photo);
     }
   }
-  const payload = req.body;
-  const result = await updateContact(contactId, { photo: photoUrl }, payload, { userId: req.user._id });
+  // const payload = req.body;
+  // const result = await updateContact(contactId, { photo: photoUrl }, payload, { userId: req.user._id });
+
+  const payload = { ...req.body };
+  delete payload._id; // Уникаємо зміни `_id`.
+
+  const result = await updateContact(
+    contactId,
+    { photo: photoUrl },
+    payload,
+    { userId: req.user._id }
+  );
 
   if (!result) {
     throw createHttpError(404, 'Contact not found');

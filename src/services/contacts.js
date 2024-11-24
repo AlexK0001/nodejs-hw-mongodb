@@ -1,6 +1,7 @@
 import { contactsAllCollection } from '../db/models/contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../constants/index.js';
+import mongoose from 'mongoose';
 
 export const getAllContacts = async ({
   userId,
@@ -57,18 +58,19 @@ export const getContactById = async (contactId, userId) => {
 };
 
 export const createContact = async (payload) => {
+  console.log('Creating contact with payload:', payload);
   const contact = await contactsAllCollection.create(payload);
   return contact;
 };
 
 export const updateContact = async (contactId, payload, { userId }, options = {}) => {
   const rawResult = await contactsAllCollection.findOneAndUpdate(
-    { _id: contactId, userId },
-    payload,
+    { _id: mongoose.Types.ObjectId(contactId), userId },
+    { $set: payload },
     {
       new: true,
       includeResultMetadata: true,
-      upsert: true,
+      // upsert: true,
       ...options,
     },
   );
