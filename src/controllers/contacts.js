@@ -97,13 +97,18 @@ export const getContactsController = async (req, res) => {
   // const result = await updateContact(contactId, { photo: photoUrl }, payload, { userId: req.user._id });
 
   const payload = { ...req.body };
-  delete payload._id; // Уникаємо зміни `_id`.
+  console.log('Patch Contact Controller:');
+  console.log('Contact ID:', contactId);
+  console.log('Payload:', payload);
+  console.log('Photo URL:', photoUrl);
+
+  delete payload._id;
 
   const result = await updateContact(
     contactId,
-    { photo: photoUrl },
     payload,
-    { userId: req.user._id }
+    { userId: req.user._id },
+    { photo: photoUrl },
   );
 
   if (!result) {

@@ -64,6 +64,11 @@ export const createContact = async (payload) => {
 };
 
 export const updateContact = async (contactId, payload, { userId }, options = {}) => {
+  console.log('Update Contact Service:');
+  console.log('Contact ID:', contactId);
+  console.log('Payload:', payload);
+  console.log('User ID:', userId);
+
   const rawResult = await contactsAllCollection.findOneAndUpdate(
     { _id: mongoose.Types.ObjectId(contactId), userId },
     { $set: payload },
