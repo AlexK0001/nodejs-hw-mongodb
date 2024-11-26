@@ -82,7 +82,8 @@ export const getContactsController = async (req, res) => {
   };
 
   export const patchContactController = async (req, res) => {
-  const { contactId } = req.params;
+  // const { contactId } = req.params;
+  const{id: _id}=req.params;
   const photo = req.file;
   let photoUrl;
 
@@ -97,18 +98,19 @@ export const getContactsController = async (req, res) => {
   // const result = await updateContact(contactId, { photo: photoUrl }, payload, { userId: req.user._id });
 
   const payload = { ...req.body };
-  console.log('Patch Contact Controller:');
-  console.log('Contact ID:', contactId);
-  console.log('Payload:', payload);
-  console.log('Photo URL:', photoUrl);
+  // console.log('Patch Contact Controller:');
+  // console.log('Contact ID:', contactId);
+  // console.log('Payload:', payload);
+  // console.log('Photo URL:', photoUrl);
 
   delete payload._id;
 
   const result = await updateContact(
-    contactId,
-    payload,
-    { userId: req.user._id },
-    { photo: photoUrl },
+{_id, photo: photoUrl, payload }
+    // contactId,
+    // payload,
+    // { userId: req.user._id },
+    // { photo: photoUrl },
   );
 
   if (!result) {
@@ -118,7 +120,7 @@ export const getContactsController = async (req, res) => {
   res.json({
     status: 200,
     message: `Successfully patched a contact!`,
-    data: result.contact,
+    data: result.data,//result.contact
   });
   };
 

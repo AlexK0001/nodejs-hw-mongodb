@@ -63,27 +63,29 @@ export const createContact = async (payload) => {
   return contact;
 };
 
-export const updateContact = async (contactId, payload, { userId }, options = {}) => {
-  console.log('Update Contact Service:');
-  console.log('Contact ID:', contactId);
-  console.log('Payload:', payload);
-  console.log('User ID:', userId);
+export const updateContact = async ({_id, photo, payload, options = {}}) => {//contactId, payload, { userId }, options = {}
+  // console.log('Update Contact Service:');
+  // console.log('Contact ID:', contactId);
+  // console.log('Payload:', payload);
+  // console.log('User ID:', userId);
 
   const rawResult = await contactsAllCollection.findOneAndUpdate(
-    { _id: mongoose.Types.ObjectId(contactId), userId },
-    { $set: payload },
-    {
-      new: true,
+    // { _id: mongoose.Types.ObjectId(contactId), userId },
+    // { $set: payload },
+    // {
+{_id}, photo, payload,{
+      // new: true,
+      ...options,
       includeResultMetadata: true,
       // upsert: true,
-      ...options,
+
     },
   );
 
   if (!rawResult || !rawResult.value) return null;
 
   return {
-    contact: rawResult.value,
+    data: rawResult.value,//contact
     isNew: Boolean(rawResult?.lastErrorObject?.upserted),
   };
 };
