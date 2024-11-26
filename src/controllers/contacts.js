@@ -82,8 +82,8 @@ export const getContactsController = async (req, res) => {
   };
 
   export const patchContactController = async (req, res) => {
-  // const { contactId } = req.params;
-  const{id: _id}=req.params;
+  const { contactId } = req.params;
+  // const{id: _id}=req.params;
   const photo = req.file;
   let photoUrl;
 
@@ -106,11 +106,9 @@ export const getContactsController = async (req, res) => {
   delete payload._id;
 
   const result = await updateContact(
-{_id, photo: photoUrl, payload }
-    // contactId,
-    // payload,
-    // { userId: req.user._id },
-    // { photo: photoUrl },
+    contactId,
+    { ...req.body, photo: photoUrl },
+    { userId: req.user._id }
   );
 
   if (!result) {
