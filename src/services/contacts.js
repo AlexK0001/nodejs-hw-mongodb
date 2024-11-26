@@ -1,7 +1,7 @@
 import { contactsAllCollection } from '../db/models/contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../constants/index.js';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 
 export const getAllContacts = async ({
   userId,
@@ -58,12 +58,12 @@ export const getContactById = async (contactId, userId) => {
 };
 
 export const createContact = async (payload) => {
-  console.log('Creating contact with payload:', payload);
+  // console.log('Creating contact with payload:', payload);
   const contact = await contactsAllCollection.create(payload);
   return contact;
 };
 
-export const updateContact = async ({_id, photo, payload, options = {}}) => {//contactId, payload, { userId }, options = {}
+export const updateContact = async (contactId, payload, { userId }, options = {}) => {//contactId, payload, { userId }, options = {}
   // console.log('Update Contact Service:');
   // console.log('Contact ID:', contactId);
   // console.log('Payload:', payload);
@@ -73,12 +73,13 @@ export const updateContact = async ({_id, photo, payload, options = {}}) => {//c
     // { _id: mongoose.Types.ObjectId(contactId), userId },
     // { $set: payload },
     // {
-{_id}, photo, payload,{
-      // new: true,
-      ...options,
+      { _id: contactId, userId },
+      { ...payload },
+      {
+      new: true,
       includeResultMetadata: true,
+      ...options,
       // upsert: true,
-
     },
   );
 
