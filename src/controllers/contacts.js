@@ -38,12 +38,10 @@ export const getContactsController = async (req, res) => {
     const { contactId } = req.params;
     const contact = await getContactById(contactId, req.user._id);
 
-    // Відповідь, якщо контакт не знайдено
 	if (!contact) {
         throw createHttpError(404, 'Contact not found');
 	}
 
-	// Відповідь, якщо контакт знайдено
     res.status(200).json({
       status: 200,
       message: `Successfully found contact with id ${contactId}!`,
@@ -51,8 +49,6 @@ export const getContactsController = async (req, res) => {
     });
   };
   export const createContactController = async (req, res) => {
-    // const contactData = { ...req.body, userId: req.user._id };
-    // const contact = await createContact(contactData);
     const photo = req.file;
   let photoUrl;
 
@@ -64,11 +60,8 @@ export const getContactsController = async (req, res) => {
     }
   }
 
-  // const payload = req.body;
-  // const result = await updateContact(contact, { photo: photoUrl }, payload, contactData);
   const contactData = { ...req.body, userId: req.user._id, photo: photoUrl };
   const contact = await createContact(contactData);
-
 
     if (!contact) {
         throw createHttpError(404, 'Contact not found');
@@ -83,7 +76,6 @@ export const getContactsController = async (req, res) => {
 
   export const patchContactController = async (req, res) => {
   const { contactId } = req.params;
-  // const{id: _id}=req.params;
   const photo = req.file;
   let photoUrl;
 
@@ -94,14 +86,8 @@ export const getContactsController = async (req, res) => {
       photoUrl = await saveFileToUploadDir(photo);
     }
   }
-  // const payload = req.body;
-  // const result = await updateContact(contactId, { photo: photoUrl }, payload, { userId: req.user._id });
 
   const payload = { ...req.body };
-  // console.log('Patch Contact Controller:');
-  // console.log('Contact ID:', contactId);
-  // console.log('Payload:', payload);
-  // console.log('Photo URL:', photoUrl);
 
   delete payload._id;
 
@@ -118,7 +104,7 @@ export const getContactsController = async (req, res) => {
   res.json({
     status: 200,
     message: `Successfully patched a contact!`,
-    data: result.data,//result.contact
+    data: result.data,
   });
   };
 

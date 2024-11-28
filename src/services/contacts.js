@@ -1,7 +1,6 @@
 import { contactsAllCollection } from '../db/models/contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../constants/index.js';
-// import mongoose from 'mongoose';
 
 export const getAllContacts = async ({
   userId,
@@ -58,35 +57,26 @@ export const getContactById = async (contactId, userId) => {
 };
 
 export const createContact = async (payload) => {
-  // console.log('Creating contact with payload:', payload);
   const contact = await contactsAllCollection.create(payload);
   return contact;
 };
 
-export const updateContact = async (contactId, payload, { userId }, options = {}) => {//contactId, payload, { userId }, options = {}
-  // console.log('Update Contact Service:');
-  // console.log('Contact ID:', contactId);
-  // console.log('Payload:', payload);
-  // console.log('User ID:', userId);
+export const updateContact = async (contactId, payload, { userId }, options = {}) => {
 
   const rawResult = await contactsAllCollection.findOneAndUpdate(
-    // { _id: mongoose.Types.ObjectId(contactId), userId },
-    // { $set: payload },
-    // {
       { _id: contactId, userId },
       { ...payload },
       {
       new: true,
       includeResultMetadata: true,
       ...options,
-      // upsert: true,
     },
   );
 
   if (!rawResult || !rawResult.value) return null;
 
   return {
-    data: rawResult.value,//contact
+    data: rawResult.value,
     isNew: Boolean(rawResult?.lastErrorObject?.upserted),
   };
 };

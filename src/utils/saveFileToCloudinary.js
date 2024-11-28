@@ -1,9 +1,9 @@
 
 import cloudinary from 'cloudinary';
 import { env } from './env.js';
-import { CLOUDINARY } from '../constants/index.js';
-// import {CLOUD_NAME, API_SECRET} from './env.js';
+import { CLOUDINARY, TEMP_UPLOAD_DIR } from '../constants/index.js';
 import fs from 'node:fs/promises';
+import path from 'node:path';
 
 cloudinary.v2.config({
   secure: true,
@@ -13,7 +13,7 @@ cloudinary.v2.config({
 });
 
 export const saveFileToCloudinary = async (file) => {
-  const response = await cloudinary.v2.uploader.upload(file.path);//file.path
-  await fs.unlink('../uploads/');//file.path
+  const response = await cloudinary.v2.uploader.upload(file.path);
+  await fs.unlink(path.join(TEMP_UPLOAD_DIR, file.filename));
   return response.secure_url;
 };
