@@ -8,12 +8,12 @@ info:
   description:
     <опис вашого додатку>
 tags:
-  # теги, що ви будете використовувати
+  - name: Contacts # теги, що ви будете використовувати
 servers:
   - url: http://localhost:3001
-  - url: #посилання на задеплоєний сайт
+  - url: https://contacts-l4js.onrender.com #посилання на задеплоєний сайт
 paths:
-/contacts:
+  /contacts:
     get:
       $ref: ../swagger/paths/contacts/get.yaml
     post:
