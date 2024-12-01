@@ -13,9 +13,9 @@ requestBody:
         type: object
         required:
           - name
-          - email
+          # - email
           - phoneNumber
-          - isFavourite
+          # - isFavourite
           - contactType
         properties:
           name:

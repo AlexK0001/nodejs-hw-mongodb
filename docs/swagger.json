@@ -76,38 +76,6 @@
           },
           {
             "in": "query",
-            "name": "minPhoneNumber",
-            "schema": {
-              "type": "number",
-              "example": 123456
-            }
-          },
-          {
-            "in": "query",
-            "name": "maxPhoneNumber",
-            "schema": {
-              "type": "number",
-              "example": 1234567891234567
-            }
-          },
-          {
-            "in": "query",
-            "name": "minEmail",
-            "schema": {
-              "type": "number",
-              "example": 103
-            }
-          },
-          {
-            "in": "query",
-            "name": "maxEmail",
-            "schema": {
-              "type": "number",
-              "example": 20345678912345678000
-            }
-          },
-          {
-            "in": "query",
             "name": "contactType",
             "schema": {
               "type": "string",
@@ -214,9 +182,7 @@
                 "type": "object",
                 "required": [
                   "name",
-                  "email",
                   "phoneNumber",
-                  "isFavourite",
                   "contactType"
                 ],
                 "properties": {
@@ -382,21 +348,19 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "name",
-                  "email",
-                  "phoneNumber",
-                  "isFavourite",
-                  "contactType"
-                ],
                 "properties": {
+                  "userId": {
+                    "description": "Id",
+                    "type": "string",
+                    "example": "674896ea483076f01ffd8865"
+                  },
                   "name": {
                     "description": "Contact's name",
                     "type": "string",
                     "example": "John Doe"
                   },
                   "email": {
-                    "description": "Contact's age",
+                    "description": "Contact's email",
                     "type": "number",
                     "example": 12
                   },

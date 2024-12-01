@@ -18,19 +18,23 @@ requestBody:
     multipart/form-data:
       schema:
         type: object
-        required:
-          - name
-          - email
-          - phoneNumber
-          - isFavourite
-          - contactType
+        # required:
+        #   - name
+        #   - email
+        #   - phoneNumber
+        #   - isFavourite
+        #   - contactType
         properties:
+          userId :
+            description: "Id"
+            type: string
+            example: '674896ea483076f01ffd8865'
           name:
             description: "Contact's name"
             type: string
             example: 'John Doe'
           email:
-            description: "Contact's age"
+            description: "Contact's email"
             type: number
             example: 12
           phoneNumber:
