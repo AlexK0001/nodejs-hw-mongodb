@@ -26,6 +26,10 @@ requestBody:
         #   - contactType
         properties:
           userId :
+            description: "userId"
+            type: string
+            example: '674896ea483076f01ffd8865'
+          Id :
             description: "Id"
             type: string
             example: '674896ea483076f01ffd8865'
