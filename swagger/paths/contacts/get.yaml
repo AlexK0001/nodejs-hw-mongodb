@@ -29,26 +29,6 @@ parameters:
       type: string
       enum: ['asc', 'desc']
       example: 'asc'
-  # - in: query
-  #   name: minPhoneNumber
-  #   schema:
-  #     type: number
-  #     example: 123456
-  # - in: query
-  #   name: maxPhoneNumber
-  #   schema:
-  #     type: number
-  #     example: 1234567891234567
-  # - in: query
-  #   name: minEmail
-  #   schema:
-  #     type: number
-  #     example: 103
-  # - in: query
-  #   name: maxEmail
-  #   schema:
-  #     type: number
-  #     example: 20345678912345678912
   - in: query
     name: contactType
     schema:

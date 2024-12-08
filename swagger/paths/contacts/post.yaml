@@ -13,9 +13,7 @@ requestBody:
         type: object
         required:
           - name
-          # - email
           - phoneNumber
-          # - isFavourite
           - contactType
         properties:
           name:
